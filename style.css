@@ -1,0 +1,518 @@
+/* 全局样式重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 页面主体样式 */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+/* 主容器样式 */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* 页面头部样式 */
+.header {
+    text-align: center;
+    color: white;
+    margin-bottom: 50px;
+}
+
+.header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* 统计信息样式 */
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    text-align: center;
+    color: white;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.stat-label {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* 搜索框容器样式 */
+.search-container {
+    margin-bottom: 30px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 25px;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.search-input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
+}
+
+/* 随机图片区域样式 */
+.random-image-container {
+    margin-bottom: 20px;
+}
+
+.random-image-label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 8px;
+}
+
+.random-image-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 随机图片预览样式 */
+.random-image-preview {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.random-image-preview img {
+    max-width: 100%;
+    max-height: 400px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* 随机图片API信息样式 */
+.random-image-api-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.api-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
+
+.api-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.85rem;
+    min-width: 80px;
+}
+
+.api-url {
+    flex: 1;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(0, 0, 0, 0.2);
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.api-item .copy-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.api-item .copy-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* 文件夹选择下拉菜单样式 */
+.folder-select {
+    flex: 1;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(0, 0, 0, 0.2);
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    outline: none;
+}
+
+.folder-select:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.folder-select:focus {
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.folder-select option {
+    background: #333;
+    color: white;
+}
+
+.random-image-path {
+    flex: 1;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+    word-break: break-all;
+}
+
+.random-image-content .copy-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.random-image-content .copy-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.random-image-description {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 8px;
+}
+
+/* 文件树容器样式 */
+.tree-container {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.tree-header {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #667eea;
+}
+
+.tree-root {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* 文件树项目样式 */
+.tree-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+    gap: 8px;
+}
+
+.tree-item:hover {
+    background-color: #f8f9fa;
+}
+
+/* 文件夹项目样式 */
+.folder-item {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0;
+    background: transparent;
+}
+
+.folder-toggle {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+    gap: 8px;
+}
+
+.folder-toggle:hover {
+    background-color: #f8f9fa;
+}
+
+.toggle-icon {
+    font-size: 0.8rem;
+    color: #666;
+    transition: transform 0.2s ease;
+    width: 16px;
+}
+
+.folder-item.collapsed .toggle-icon {
+    transform: rotate(0deg);
+}
+
+.folder-item:not(.collapsed) .toggle-icon {
+    transform: rotate(90deg);
+}
+
+.folder-content {
+    display: none;
+    padding-left: 32px;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.folder-item:not(.collapsed) .folder-content {
+    display: flex;
+}
+
+/* 文件树图标和名称样式 */
+.tree-icon {
+    font-size: 1.2rem;
+    width: 24px;
+    text-align: center;
+}
+
+.tree-name {
+    flex: 1;
+    font-weight: 500;
+    color: #333;
+    word-break: break-all;
+}
+
+/* 文件信息样式 */
+.file-info {
+    color: #999;
+    font-size: 0.85rem;
+    margin-right: 8px;
+    white-space: nowrap;
+}
+
+.file-type {
+    margin-right: 8px;
+}
+
+.file-size {
+    color: #999;
+}
+
+/* 可点击元素样式 */
+.tree-icon.clickable, .tree-name.clickable {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+
+/* 文件夹数量样式 */
+.folder-count {
+    color: #999;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* 复制按钮样式 */
+.copy-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
+    flex-shrink: 0;
+}
+
+.copy-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(102, 126, 234, 0.4);
+}
+
+.copy-btn:active {
+    transform: translateY(0);
+}
+
+.copy-btn.copied {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+}
+
+/* 预览按钮样式 */
+.preview-btn {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(79, 172, 254, 0.3);
+    flex-shrink: 0;
+}
+
+.preview-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(79, 172, 254, 0.4);
+}
+
+.preview-btn:active {
+    transform: translateY(0);
+}
+
+/* 提示框样式 */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #28a745;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.toast.show {
+    opacity: 1;
+    visibility: visible;
+    bottom: 50px;
+}
+
+/* 返回顶部按钮样式 */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #f0f0f0;
+    color: black;
+    border: 1px solid #d0d0d0;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.back-to-top svg {
+    width: 24px;
+    height: 24px;
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    background: #e0e0e0;
+    border-color: #c0c0c0;
+}
+
+.back-to-top:active {
+    transform: scale(0.95);
+}
+
+/* 隐藏元素样式 */
+.tree-item.hidden {
+    display: none !important;
+}
+
+.folder-item.hidden {
+    display: none !important;
+}
+
+/* 响应式设计 - 移动端适配 */
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .tree-container {
+        padding: 20px;
+    }
+
+    .tree-item,
+    .folder-toggle {
+        padding: 8px 10px;
+    }
+
+    .tree-name {
+        font-size: 0.9rem;
+    }
+
+    .file-info {
+        font-size: 0.75rem;
+        display: none;
+    }
+
+    .copy-btn,
+    .preview-btn {
+        padding: 5px 10px;
+        font-size: 0.75rem;
+    }
+
+    .stats {
+        gap: 20px;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
+}
