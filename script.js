@@ -4,6 +4,30 @@ function toggleFolder(element) {
     folderItem.classList.toggle('collapsed');
 }
 
+// 从页面中获取图片数据
+function getImageData() {
+    const imageDataScript = document.getElementById('imageData');
+    if (!imageDataScript) {
+        console.error('未找到图片数据');
+        return { allImages: [], folderImages: {} };
+    }
+    try {
+        return JSON.parse(imageDataScript.textContent);
+    } catch (error) {
+        console.error('解析图片数据失败:', error);
+        return { allImages: [], folderImages: {} };
+    }
+}
+
+// 从指定图片数组中随机选择一张图片
+function getRandomImage(imageArray) {
+    if (!imageArray || imageArray.length === 0) {
+        return null;
+    }
+    const randomIndex = Math.floor(Math.random() * imageArray.length);
+    return imageArray[randomIndex];
+}
+
 // 处理搜索功能，根据搜索词过滤显示的文件和文件夹
 function handleSearch() {
     const searchInput = document.getElementById('searchInput');
@@ -150,22 +174,64 @@ function updateRandomImage() {
     const selectedFolder = folderSelect.value;
     const apiUrlElement = document.getElementById('apiUrl');
     const preview = document.getElementById('randomImagePreview');
+    const randomImagePathElement = document.getElementById('randomImagePath');
     
+    const imageData = getImageData();
+    let randomImagePath = null;
     let apiPath = '/random';
-    if (selectedFolder) {
+    
+    if (selectedFolder && imageData.folderImages[selectedFolder]) {
         apiPath = '/random?folder=' + encodeURIComponent(selectedFolder);
+        randomImagePath = getRandomImage(imageData.folderImages[selectedFolder]);
+    } else {
+        randomImagePath = getRandomImage(imageData.allImages);
     }
     
     apiUrlElement.textContent = apiPath;
-    preview.style.display = 'inline-block';
-    preview.src = apiPath + (apiPath.includes('?') ? '&' : '?') + 't=' + new Date().getTime();
+    
+    if (randomImagePath) {
+        const baseUrl = window.location.origin;
+        preview.style.display = 'inline-block';
+        preview.src = baseUrl + '/' + randomImagePath;
+        if (randomImagePathElement) {
+            randomImagePathElement.textContent = randomImagePath;
+        }
+    } else {
+        preview.style.display = 'none';
+        if (randomImagePathElement) {
+            randomImagePathElement.textContent = '';
+        }
+    }
 }
 
 // 刷新随机图片预览
 function refreshRandomImage() {
+    const folderSelect = document.getElementById('folderSelect');
+    const selectedFolder = folderSelect.value;
     const preview = document.getElementById('randomImagePreview');
-    if (preview) {
-        preview.src = '/random?' + new Date().getTime();
+    const randomImagePathElement = document.getElementById('randomImagePath');
+    
+    const imageData = getImageData();
+    let randomImagePath = null;
+    
+    if (selectedFolder && imageData.folderImages[selectedFolder]) {
+        randomImagePath = getRandomImage(imageData.folderImages[selectedFolder]);
+    } else {
+        randomImagePath = getRandomImage(imageData.allImages);
+    }
+    
+    if (randomImagePath) {
+        const baseUrl = window.location.origin;
+        preview.style.display = 'inline-block';
+        preview.src = baseUrl + '/' + randomImagePath;
+        if (randomImagePathElement) {
+            randomImagePathElement.textContent = randomImagePath;
+        }
+    } else {
+        preview.style.display = 'none';
+        if (randomImagePathElement) {
+            randomImagePathElement.textContent = '';
+        }
     }
 }
 

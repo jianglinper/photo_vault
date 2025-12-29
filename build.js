@@ -50,6 +50,7 @@ async function scanDirectory(rootPath) {
     const folders = [];
     const rootFiles = [];
     const allImagePaths = [];
+    const folderImages = {};
     
     for (const item of items) {
         const itemPath = path.join(rootPath, item);
@@ -77,6 +78,7 @@ async function scanDirectory(rootPath) {
                     name: item,
                     files: folderFiles
                 });
+                folderImages[item] = folderFiles.map(f => f.path);
             }
         } else if (isImageFile(item)) {
             const fileStat = fs.statSync(itemPath);
@@ -95,7 +97,7 @@ async function scanDirectory(rootPath) {
     
     folders.sort((a, b) => a.name.localeCompare(b.name));
     
-    return { folders, rootFiles, allImagePaths };
+    return { folders, rootFiles, allImagePaths, folderImages };
 }
 
 // 生成文件树HTML
@@ -178,7 +180,7 @@ async function main() {
     }
     
     console.log(`扫描目录: ${websiteDir}`);
-    const { folders, rootFiles, allImagePaths } = await scanDirectory(websiteDir);
+    const { folders, rootFiles, allImagePaths, folderImages } = await scanDirectory(websiteDir);
     
     const totalFolders = folders.length;
     const totalFiles = folders.reduce((sum, f) => sum + f.files.length, 0) + rootFiles.length;
@@ -194,11 +196,19 @@ async function main() {
     const treeHtml = generateTreeHtml(folders, rootFiles);
     const folderOptions = generateFolderOptions(folders);
     
+    // 生成图片数据的JSON字符串，用于前端随机图片功能
+    const imageData = {
+        allImages: allImagePaths,
+        folderImages: folderImages
+    };
+    const imageDataJson = JSON.stringify(imageData);
+    
     let templateContent = fs.readFileSync(templateFile, 'utf-8');
     templateContent = templateContent.replace('{{totalFolders}}', totalFolders);
     templateContent = templateContent.replace('{{totalFiles}}', totalFiles);
     templateContent = templateContent.replace('{{treeContent}}', treeHtml);
     templateContent = templateContent.replace('{{folderOptions}}', folderOptions);
+    templateContent = templateContent.replace('{{imageData}}', imageDataJson);
     
     fs.writeFileSync(outputFile, templateContent, 'utf-8');
     

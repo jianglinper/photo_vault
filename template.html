@@ -31,8 +31,10 @@
             <div class="random-image-label">🎲 随机图片 API</div>
             <!-- 随机图片预览 -->
             <div class="random-image-preview">
-                <img id="randomImagePreview" src="/random" alt="随机图片" onerror="this.style.display='none'">
+                <img id="randomImagePreview" src="" alt="随机图片" style="display: none;">
             </div>
+            <!-- 当前随机图片路径（隐藏） -->
+            <div id="randomImagePath" style="display: none;"></div>
             <!-- API信息：文件夹选择和API地址 -->
             <div class="random-image-api-info">
                 <div class="api-item">
@@ -80,6 +82,10 @@
 
     <!-- 引入JavaScript脚本 -->
     <script src="script.js"></script>
+    <!-- 图片数据存储：用于前端随机图片功能 -->
+    <script type="application/json" id="imageData">
+        {{imageData}}
+    </script>
     <!-- 页面加载完成后初始化随机图片 -->
     <script>
         window.addEventListener('DOMContentLoaded', function() {
