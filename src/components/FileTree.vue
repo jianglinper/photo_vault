@@ -32,12 +32,12 @@
           <span class="toggle-icon">▶</span>
           <span class="tree-icon">📁</span>
           <span class="tree-name">{{ folder.name }}</span>
-          <span class="folder-count">({{ folder.files.filter(file => !searchTerm.value || file.name.toLowerCase().includes(searchTerm.value.toLowerCase())).length }})</span>
+          <span class="folder-count">({{ folder.files.length }})</span>
           <button class="copy-btn copy-folder-btn" @click="copyFolderName(folder.name, $event.target)">📋</button>
         </div>
         <div class="folder-content">
           <div 
-        v-for="file in folder.files.filter(file => !searchTerm.value || file.name.toLowerCase().includes(searchTerm.value.toLowerCase()))" 
+        v-for="file in folder.files" 
         :key="file.path"
             class="tree-item file-item"
             :data-path="file.path"
@@ -80,6 +80,8 @@ const handleSearch = (term) => {
   const matchingFiles = [];
   
   // 使用与界面相同的过滤逻辑
+  const searchLower = term.toLowerCase();
+  
   // 根目录文件
   filteredRootFiles.value.forEach(file => {
     matchingFiles.push(`根目录: ${file.name}`);
@@ -87,10 +89,7 @@ const handleSearch = (term) => {
   
   // 文件夹内的文件
   filteredFolders.value.forEach(folder => {
-    const filteredFiles = folder.files.filter(file => 
-      file.name.toLowerCase().includes(term.toLowerCase())
-    );
-    filteredFiles.forEach(file => {
+    folder.files.forEach(file => {
       matchingFiles.push(`${folder.name}: ${file.name}`);
     });
   });
@@ -144,8 +143,9 @@ const filteredRootFiles = computed(() => {
   if (!searchTerm.value) {
     return rootFiles.value;
   }
+  const searchLower = searchTerm.value.toLowerCase();
   return rootFiles.value.filter(file => 
-    file.name.toLowerCase().includes(searchTerm.value.toLowerCase())
+    file.name.toLowerCase().includes(searchLower)
   );
 });
 
@@ -153,15 +153,24 @@ const filteredFolders = computed(() => {
   if (!searchTerm.value) {
     return folders.value;
   }
-  return folders.value.filter(folder => {
-    // 检查文件夹名称是否匹配搜索词
-    const folderMatches = folder.name.toLowerCase().includes(searchTerm.value.toLowerCase());
-      // 检查文件夹内是否有匹配的文件
-      const hasMatchingFiles = folder.files.some(file => 
-        file.name.toLowerCase().includes(searchTerm.value.toLowerCase())
-      );
-    return folderMatches || hasMatchingFiles;
-  });
+  const searchLower = searchTerm.value.toLowerCase();
+  return folders.value.map(folder => {
+    // 检查文件夹内是否有匹配的文件
+    const matchingFiles = folder.files.filter(file => 
+      file.name.toLowerCase().includes(searchLower)
+    );
+    
+    // 只返回包含匹配文件的文件夹
+    if (matchingFiles.length === 0) {
+      return null;
+    }
+    
+    // 返回文件夹，但只包含匹配的文件
+    return {
+      ...folder,
+      files: matchingFiles
+    };
+  }).filter(folder => folder !== null);
 });
 
 // 在新窗口中预览文件
