@@ -46,8 +46,6 @@ npm run build
 photo_vault/
 ├── public/
 │   └── website/          # 图片资源目录
-│       ├── Genshin/      # 原神图片
-│       ├── creativity/   # 创意图片
 │       └── ...
 ├── src/
 │   ├── components/      # Vue 组件
@@ -93,7 +91,6 @@ photo_vault/
 
 将 `dist/` 目录部署到任何静态网站托管服务，如：
 - GitHub Pages
-- Tencent Cloud EdgeOne Pages
 - Vercel
 - Netlify
 - Cloudflare Pages
